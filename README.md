@@ -1,6 +1,5 @@
 # Ames Housing: Price Prediction Model
-
-This project builds a regression model to estimate house prices in Ames, Iowa using key property features. The focus is on simplicity, interpretability, and predictive performance.
+This project explores and models housing prices in Ames, Iowa using a full data science workflow. It includes exploratory data analysis (EDA), feature selection, and a multiple linear regression model to predict house prices. The focus is on interpretability, feature understanding, and baseline predictive performance.
 
 ---
 
