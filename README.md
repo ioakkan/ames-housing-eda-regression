@@ -1,35 +1,90 @@
-# Ames Housing: Analytical Valuation Engine
+# Ames Housing: Price Prediction Model
 
-This project implements a high-performance regression framework to quantify property values in the Ames, Iowa, housing market. By synthesizing automated feature engineering with multivariate linear modeling, the engine translates architectural and spatial attributes into precise financial insights, maintaining a strong focus on statistical reliability and model interpretability.
+This project builds a regression model to estimate house prices in Ames, Iowa using key property features. The focus is on simplicity, interpretability, and predictive performance.
 
-## Technical Workflow
+---
 
-### 1. Feature Intelligence & Discovery
-The initial phase focused on identifying the primary drivers of market value from a high-dimensional dataset of 80+ variables. Rather than utilizing the entire feature space, a strict statistical filter was applied to ensure model parsimony and focus on variables with the highest predictive power.
+## Project Workflow
 
-* **Correlation Filtering:** Automated selection of features maintaining a Pearson Correlation $|r| \ge 0.6$ with the target variable (**SalePrice**).
-* **Multicollinearity Mitigation:** Executed a redundancy audit to eliminate overlapping variance and ensure coefficient stability. This prevents the model from "double-counting" similar features.
-    * *Strategic Decision:* **GarageArea** was removed in favor of **GarageCars**.
-    * *Strategic Decision:* **1stFlrSF** was removed in favor of **TotalBsmtSF**.
-* **Result:** Engineered a refined, high-performance feature set including **OverallQual**, **TotalBsmtSF**, **GrLivArea**, and **GarageCars**.
+### 1. Feature Selection
+From a dataset with 80+ variables, key features were selected to reduce complexity and improve model stability.
 
-### 2. Predictive Modeling & Implementation
-Following the discovery stage, a **Multivariate Linear Regression** framework was implemented to quantify the relationship between curated physical attributes and market price.
+- **Correlation filtering:** Selected features with strong correlation (|r| ≥ 0.6) with **SalePrice**
+- **Multicollinearity handling:** Removed overlapping features to avoid redundancy  
+  - Dropped **GarageArea** in favor of **GarageCars**  
+  - Dropped **1stFlrSF** in favor of **TotalBsmtSF**
 
-* **Validation Strategy:** Partitioned data into an 80/20 Train-Test split to rigorously validate the model's ability to generalize to unseen data.
-* **Interpretability:** By utilizing a streamlined feature set, the model remains transparent, providing clear evidence of how specific property improvements (like increasing living area or basement size) contribute to total dollar value.
+**Final feature set:**
+- OverallQual  
+- TotalBsmtSF  
+- GrLivArea  
+- GarageCars  
 
-### 3. Performance Analysis & Evaluation
-The final stage involved a multi-metric stress test to gain a comprehensive understanding of prediction accuracy and market volatility.
+---
 
-| Metric | Testing Value | Statistical Narrative |
-| :--- | :--- | :--- |
-| **R² Score** | **0.7650** | The model captures ~76.5% of the variance in residential market pricing. |
-| **Mean Absolute Error (MAE)** | **$23,571** | The average absolute deviation from the true market price. |
-| **RMSE** | **$31,310** | The elevated RMSE indicates sensitivity to high-value outliers. |
-| **Median Absolute Error** | **$20,001** | For 50% of cases, the model's accuracy is higher than the MAE suggests. |
+## Data Visualization
 
-## Key Technical Insights
+All visualizations are stored in the `visualizations/` folder.  
+Each feature plot includes a histogram, scatter plot, and boxplot combined in one figure.
 
-* **Model Generalization:** The marginal delta between Training **R² (0.77)** and Testing **R² (0.76)** confirms a highly robust model that effectively avoids overfitting, ensuring reliable performance on new data.
-* **Error Distribution Analysis:** The divergence between the **MAE** and the **Median Absolute Error** highlights a critical market insight: the model is exceptionally accurate for "typical" residential properties but faces higher variance when predicting unique, luxury-tier estates. This suggests that high-end homes may be influenced by subjective factors not captured in the current feature set.
+---
+
+### Correlation Heatmap
+
+![Correlation Heatmap](visualizations/features_corr_heatmap.png)
+
+---
+
+### Overall Quality (OverallQual)
+
+![OverallQual Plots](visualizations/OverallQual_plots.png)
+
+---
+
+### Living Area (GrLivArea)
+
+![GrLivArea Plots](visualizations/GrLivArea_plots.png)
+
+---
+
+### Basement Area (TotalBsmtSF)
+
+![TotalBsmtSF Plots](visualizations/TotalBsmtSF_plots.png)
+
+---
+
+### Garage Capacity (GarageCars)
+
+![GarageCars Plots](visualizations/GarageCars_plots.png)
+
+---
+
+## Model Development
+
+A **Multiple Linear Regression** model was trained to predict house prices.
+
+- Train/Test split: 80% / 20%  
+- Focus: interpretability and baseline performance  
+
+---
+
+## Model Evaluation
+
+| Metric | Value |
+|------|------|
+| R² Score | 0.765 |
+| Mean Absolute Error (MAE) | $23,571 |
+| Root Mean Squared Error (RMSE) | $31,310 |
+| Median Absolute Error | $20,001 |
+
+---
+
+## Key Findings
+
+- Model explains ~76% of price variance  
+- Small gap between training and testing performance → good generalization  
+- Higher RMSE indicates sensitivity to expensive outliers  
+- Better performance on typical homes than luxury properties  
+
+---
+
